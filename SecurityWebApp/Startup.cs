@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using SecurityWebApp.Data.Model;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace SecurityWebApp
 {
@@ -37,10 +39,21 @@ namespace SecurityWebApp
 
       services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbSqlServer")));
 
-      services.AddDefaultIdentity<IdentityUser>()
+      services
+          .AddIdentity<AppUser, IdentityRole>(options =>
+          {
+            options.Password.RequireDigit = false;
+            //TODO: uncomment after some tests
+            //options.Password.RequiredLength = 12; 
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+          })
+          .AddEntityFrameworkStores<ApplicationDbContext>()
           .AddDefaultUI(UIFramework.Bootstrap4)
-          .AddDefaultTokenProviders()
-          .AddEntityFrameworkStores<ApplicationDbContext>();
+          .AddDefaultTokenProviders();
+
+      services.AddSingleton<IEmailSender, AppEmailSender>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
           .AddRazorPagesOptions(options =>
