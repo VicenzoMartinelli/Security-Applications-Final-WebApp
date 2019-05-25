@@ -9,6 +9,7 @@ namespace SecurityWebApp.Data.Model
   public class AppUser : IdentityUser
   {
     public string Sector { get; set; }
+    public string IsPilot { get; set; }
     public DateTime StartDate { get; set; }
   }
 }

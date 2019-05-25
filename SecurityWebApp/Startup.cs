@@ -68,6 +68,8 @@ namespace SecurityWebApp
             {
               Duration = 5000
             });
+
+            x.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
           });
 
       services.ConfigureApplicationCookie(options =>

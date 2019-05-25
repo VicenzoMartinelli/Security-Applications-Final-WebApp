@@ -14,5 +14,9 @@ namespace SecurityWebApp.Data
     {
 
     }
+
+    public virtual DbSet<Star> Stars { get; set; }
+    public virtual DbSet<Pilot> Pilots { get; set; }
+    public virtual DbSet<Shuttle> Shuttles { get; set; }
   }
 }

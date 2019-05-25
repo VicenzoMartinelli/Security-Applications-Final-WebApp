@@ -85,11 +85,9 @@ namespace SecurityWebApp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -120,11 +118,9 @@ namespace SecurityWebApp.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -147,6 +143,8 @@ namespace SecurityWebApp.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("IsPilot");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -186,6 +184,59 @@ namespace SecurityWebApp.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("SecurityWebApp.Data.Model.Pilot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("BirthDate");
+
+                    b.Property<int>("Genre");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pilots");
+                });
+
+            modelBuilder.Entity("SecurityWebApp.Data.Model.Shuttle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Model");
+
+                    b.Property<Guid?>("PilotoId");
+
+                    b.Property<string>("Producer");
+
+                    b.Property<int>("Type");
+
+                    b.Property<double>("Value");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PilotoId");
+
+                    b.ToTable("Shuttles");
+                });
+
+            modelBuilder.Entity("SecurityWebApp.Data.Model.Star", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Class");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Stars");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -231,6 +282,13 @@ namespace SecurityWebApp.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SecurityWebApp.Data.Model.Shuttle", b =>
+                {
+                    b.HasOne("SecurityWebApp.Data.Model.Pilot", "Piloto")
+                        .WithMany()
+                        .HasForeignKey("PilotoId");
                 });
 #pragma warning restore 612, 618
         }
