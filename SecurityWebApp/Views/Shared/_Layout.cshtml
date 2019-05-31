@@ -21,38 +21,12 @@
 </head>
 <body>
   <style type="text/css">
-    a.nav-link {
-      color: rgb(113, 89, 193) !important;
-      border-left: 4px solid #ffffff;
-      border-radius: 15px 0px 7px 22px;
-      border-bottom: 2px solid #ffffff;
-      padding: 0.30rem;
-      padding-right: 0.9rem !important;
-      transition: border-color 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    }
-    a.nav-link:hover {
-      border-left: 4px solid #00d1b2;
-      border-bottom: 2px solid #00d1b2;
-    }
-
-    a.navbar-brand {
-      color: #0eb39a !important;
-      border-left: 4px solid #ffffff;
-      border-radius: 15px 0px 7px 22px;
-      border-bottom: 2px solid #ffffff;
-      padding: 0.30rem;
-      padding-right: 1.2rem !important;
-      transition: border-color 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-    }
-    a.navbar-brand:hover {
-      border-left: 4px solid #7159c1;
-      border-bottom: 2px solid #7159c1;
-    }
+    
   </style>
   <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
       <div class="container">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+        <a class="navbar-brand nav-link" asp-area="" asp-controller="Home" asp-action="Index">
           <i class="fas fa-rocket"></i> Home
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -93,7 +67,7 @@
   </div>
 
   <footer class="border-top footer text-muted">
-    <div class="container">
+    <div class="container text-purple font-weight-bold">
       &copy; 2019 - Segurança de Aplicações, Vicenzo & Samuel
     </div>
   </footer>

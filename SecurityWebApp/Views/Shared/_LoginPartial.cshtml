@@ -11,13 +11,13 @@
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark"><i class="fas fa-door-open"></i> Logout</button>
+            <button  type="submit" class="nav-link btn btn-link text-dark"><i class="fas fa-door-open"></i> Sair</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i> Entrar</a>
     </li>
 }

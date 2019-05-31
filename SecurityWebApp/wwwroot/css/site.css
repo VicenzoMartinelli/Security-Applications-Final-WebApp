@@ -11,7 +11,22 @@ a.navbar-brand {
 -------------------------------------------------- */
 html {
   font-size: 14px;
+  background: rgb(113, 89, 193) !important;
 }
+
+canvas {
+  position: absolute;
+  top: 7.4%;
+  left: 0;
+  right: 0;
+  height: 85vh;
+  width: 100%;
+}
+
+nav, footer{
+  background: #000 !important;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -19,10 +34,11 @@ html {
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid rgb(113, 89, 193) !important;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid rgb(113, 89, 193) !important;
 }
 
 .box-shadow {
@@ -45,6 +61,7 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -53,4 +70,45 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
+}
+
+a {
+  border-radius: 9px;
+  color: #7159c1 !important;
+  transition: all 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  text-decoration: none !important;
+}
+
+  a:hover {
+    background: #7159c1;
+    color: white !important;
+    padding: 6px 22px;
+    font-weight: bold;
+    transform: scale(1.1);
+  }
+
+button, input[type="submit"] {
+  display: inline-block;
+  line-height: 50px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: rgb(255, 255, 255) !important;
+  background-color: #7159c1 !important;
+  margin: 15px 0px 0px;
+  padding: 0px 30px;
+  text-decoration: none !important;
+  border-radius: 5px !important;
+  transition: all 200ms linear 0s !important;
+  border-color: #694fbf !important;
+}
+
+  button:hover, input[type="submit"]:hover {
+    font-size: 1.3em !important;
+    background-color: #00d1b2 !important;
+    color: #fff !important;
+    border: none;
+  }
+
+.text-purple {
+  color: rgb(113, 89, 193) !important;
 }
