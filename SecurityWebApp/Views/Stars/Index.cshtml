@@ -8,48 +8,10 @@
 
 <h1 class="text-center text-purple">Lista de Astros</h1>
 
-<p>
-  <a asp-action="Create">Create New</a>
-</p>
+  <a data-toggle="tooltip" data-placement="left" title="Incluir" asp-action="Create" class="floating-button"><i class="far fa-plus-square fa-2x"></i></a>
 
 <div class="container-fluid d-flex justify-content-around align-self-start align-content-start flex-wrap">
-  <style>
-    .border-purple {
-      border: 1px dashed rgb(113, 89, 193);
-    }
-
-    .border-purple {
-      border: 1px dashed rgb(113, 89, 193);
-    }
-
-    .flex-1 {
-      flex: 1;
-    }
-
-    .card > a {
-      padding: 6px 22px;
-      font-weight: bold;
-      transform: scale(1.1);
-    }
-
-    .tooltip-inner {
-    }
-  </style>
-  @{
-    int now = 0;
-    List<List<Star>> sections = new List<List<Star>>();
-
-    //foreach (var item in Model)
-    //{
-    //  sections[now++].Add(item);
-
-    //  if (now == 3)
-    //  {
-    //    now = 0;
-    //  }
-    //}
-  }
-
+  <link href="~/css/list.css" rel="stylesheet" />
   <div class="container-fluid row">
     @foreach (var item in Model)
     {
@@ -71,7 +33,6 @@
           </div>
         </div>
       </div>
-
     }
   </div>
 </div>
