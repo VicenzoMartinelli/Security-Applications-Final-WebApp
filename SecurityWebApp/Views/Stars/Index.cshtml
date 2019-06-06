@@ -1,41 +1,77 @@
-﻿@model IEnumerable<SecurityWebApp.Data.Model.Star>
+﻿@using SecurityWebApp.Data.Model;
+
+@model IEnumerable<SecurityWebApp.Data.Model.Star>
 
 @{
-    ViewData["Title"] = "Index";
+  ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center text-purple">Lista de Astros</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+  <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Class)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container-fluid d-flex justify-content-around align-self-start align-content-start flex-wrap">
+  <style>
+    .border-purple {
+      border: 1px dashed rgb(113, 89, 193);
+    }
+
+    .border-purple {
+      border: 1px dashed rgb(113, 89, 193);
+    }
+
+    .flex-1 {
+      flex: 1;
+    }
+
+    .card > a {
+      padding: 6px 22px;
+      font-weight: bold;
+      transform: scale(1.1);
+    }
+
+    .tooltip-inner {
+    }
+  </style>
+  @{
+    int now = 0;
+    List<List<Star>> sections = new List<List<Star>>();
+
+    //foreach (var item in Model)
+    //{
+    //  sections[now++].Add(item);
+
+    //  if (now == 3)
+    //  {
+    //    now = 0;
+    //  }
+    //}
+  }
+
+  <div class="container-fluid row">
+    @foreach (var item in Model)
+    {
+      <div class="col-lg-4">
+        <div class="container-fluid card shadow-lg border-purple m-2">
+          <div class="card-body p-2 text-purple">
+            <label for="'class' + '@item.Id'" class="font-weight-bold">Classe</label>
+            <p id="'class' + '@item.Id'">@item.Class</p>
+            <label for="'name' + '@item.Id'" class="font-weight-bold">Nome</label>
+            <p id="'class' + '@item.Id'">@item.Name</p>
+          </div>
+          <div class="card-footer border-top border-purple d-flex bg-white">
+            <div class="flex-1 text-center">
+              <a asp-action="Edit" asp-route-id="@item.Id"><i data-toggle="tooltip" data-placement="bottom" title="Editar" class="fas fa-pen"></i></a>
+            </div>
+            <div class="flex-1 text-center">
+              <a asp-action="Delete" asp-route-id="@item.Id"><i data-toggle="tooltip" data-placement="bottom" title="Excluir" class="fas fa-eraser"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    }
+  </div>
+</div>
