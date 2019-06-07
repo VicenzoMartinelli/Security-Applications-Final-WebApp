@@ -27,7 +27,7 @@ namespace SecurityWebApp.Models.Config
       return resourceKey;
     }
 
-    public static string GetDisplayValue(Enum value)
+    public static string GetDisplayValue(this Enum value)
     {
       var fieldInfo = value.GetType().GetField(value.ToString());
 

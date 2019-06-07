@@ -20,7 +20,7 @@
         <div class="container-fluid card shadow-lg border-purple m-2">
           <div class="card-body p-2 text-purple">
             <label for="'class' + '@item.Id'" class="font-weight-bold">Classe</label>
-            <p id="'class' + '@item.Id'">@EnumHelper.GetDisplayValue(item.Class)</p>
+            <p id="'class' + '@item.Id'">@item.Class.GetDisplayValue()</p>
             <label for="'name' + '@item.Id'" class="font-weight-bold">Nome</label>
             <p id="'class' + '@item.Id'">@item.Name</p>
           </div>
