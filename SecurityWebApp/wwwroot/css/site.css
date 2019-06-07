@@ -104,7 +104,6 @@ button, input[type="submit"] {
 }
 
   button:hover, input[type="submit"]:hover {
-    font-size: 1.3em !important;
     background-color: #00d1b2 !important;
     color: #fff !important;
     border: none;
@@ -197,4 +196,9 @@ button, input[type="submit"] {
 
 .hover {
   opacity: 1;
+}
+
+.form-control:focus {
+  border-color: #7159c1;
+  box-shadow: 0 0 0 0.2rem rgb(204, 198, 226);
 }

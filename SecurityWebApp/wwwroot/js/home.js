@@ -24,6 +24,7 @@ var lastMouseY = null;
 document.querySelector('html').style.background = 'rgb(113, 89, 193) !important';
 
 canvas.addEventListener("mousemove", function (e) {
+  debugger;
   if (timestamp === null) {
     timestamp = Date.now();
     lastMouseX = e.screenX;
@@ -39,7 +40,7 @@ canvas.addEventListener("mousemove", function (e) {
   var speedY = Math.round(dy / dt * 100);
 
 
-  speed = ((speedX + speedY / 2) / 20) > 5 ? ((speedX + speedY / 2) / 20) : 5;
+  speed = ((speedX + speedY / 2) / 10) > 5 ? ((speedX + speedY / 2) / 10) : 5;
 
   timestamp = now;
   lastMouseX = e.screenX;

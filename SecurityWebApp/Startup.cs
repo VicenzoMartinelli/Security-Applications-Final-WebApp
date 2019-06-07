@@ -38,13 +38,13 @@ namespace SecurityWebApp
       });
 
       services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbSqlServer")));
+      
+      
 
       services
           .AddIdentity<AppUser, IdentityRole>(options =>
           {
             options.Password.RequireDigit = false;
-            //TODO: uncomment after some tests
-            //options.Password.RequiredLength = 12; 
             options.Password.RequireLowercase = false;
             options.Password.RequireUppercase = false;
             options.Password.RequireNonAlphanumeric = false;

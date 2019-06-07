@@ -1,4 +1,5 @@
 ﻿@using SecurityWebApp.Data.Model;
+@using SecurityWebApp.Models.Config;
 
 @model IEnumerable<SecurityWebApp.Data.Model.Star>
 
@@ -8,7 +9,7 @@
 
 <h1 class="text-center text-purple">Lista de Astros</h1>
 
-  <a data-toggle="tooltip" data-placement="left" title="Incluir" asp-action="Create" class="floating-button"><i class="far fa-plus-square fa-2x"></i></a>
+  <a data-toggle="tooltip" data-placement="left" title="Incluir" asp-action="Create" class="floating-button"><i class="far fa-plus-square fa-lg"></i></a>
 
 <div class="container-fluid d-flex justify-content-around align-self-start align-content-start flex-wrap">
   <link href="~/css/list.css" rel="stylesheet" />
@@ -19,7 +20,7 @@
         <div class="container-fluid card shadow-lg border-purple m-2">
           <div class="card-body p-2 text-purple">
             <label for="'class' + '@item.Id'" class="font-weight-bold">Classe</label>
-            <p id="'class' + '@item.Id'">@item.Class</p>
+            <p id="'class' + '@item.Id'">@EnumHelper.GetDisplayValue(item.Class)</p>
             <label for="'name' + '@item.Id'" class="font-weight-bold">Nome</label>
             <p id="'class' + '@item.Id'">@item.Name</p>
           </div>

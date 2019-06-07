@@ -10,8 +10,10 @@ namespace SecurityWebApp.Data.Model
   {
     public Guid Id { get; set; }
     [Required]
+    [Display(Name = "Nome")]
     public string Name { get; set; }
     [Required]
+    [Display(Name = "Classe")]
     [EnumDataType(typeof(StarClass))]
     public StarClass Class { get; set; }
   }
