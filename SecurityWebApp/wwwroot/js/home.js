@@ -1,6 +1,7 @@
 ﻿// Setting the Canvas width and height to fill the web browser.
 
-document.querySelector('html').style.background = 'rgb(113, 89, 193) !important';
+
+
 
 let canvas = document.getElementById('canvas');
 
@@ -14,7 +15,36 @@ let size = 1;
 let fl = canvas.width;
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
-let speed = 8;
+let speed = 5;
+
+var timestamp = null;
+var lastMouseX = null;
+var lastMouseY = null;
+
+document.querySelector('html').style.background = 'rgb(113, 89, 193) !important';
+
+canvas.addEventListener("mousemove", function (e) {
+  if (timestamp === null) {
+    timestamp = Date.now();
+    lastMouseX = e.screenX;
+    lastMouseY = e.screenY;
+    return;
+  }
+
+  var now = Date.now();
+  var dt = now - timestamp;
+  var dx = e.screenX - lastMouseX;
+  var dy = e.screenY - lastMouseY;
+  var speedX = Math.round(dx / dt * 100);
+  var speedY = Math.round(dy / dt * 100);
+
+
+  speed = ((speedX + speedY / 2) / 20) > 5 ? ((speedX + speedY / 2) / 20) : 5;
+
+  timestamp = now;
+  lastMouseX = e.screenX;
+  lastMouseY = e.screenY;
+});
 for (let i = 0; i < numStars; i++) {
   stars[i] = new Star();
 }
@@ -42,7 +72,7 @@ function Star() {
     s = size * (fl / this.z);
 
     c.beginPath();
-    c.fillStyle = 'white';
+    c.fillStyle = 'rgb(113, 89, 193)';
     c.arc(x, y, s, 0, Math.PI * 2);
     c.fill();
   };
@@ -63,3 +93,11 @@ function update() {
 }
 
 update();
+
+$(() => {
+  $('.zooom').hover(function () {
+    $('.zooom-description').addClass('hover');
+  }, function () {
+    $('.zooom-description').removeClass('hover');
+  });
+});
