@@ -1,53 +1,43 @@
-﻿@model IEnumerable<SecurityWebApp.Data.Model.Shuttle>
+﻿@using SecurityWebApp.Data.Model;
+@using SecurityWebApp.Models.Config;
+
+@model IEnumerable<SecurityWebApp.Data.Model.Shuttle>
 
 @{
-    ViewData["Title"] = "Index";
+  ViewData["Title"] = "Naves";
 }
 
-<h1>Index</h1>
+<h1 class="text-center text-purple">Lista de Naves</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Producer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Producer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<a data-toggle="tooltip" data-placement="left" title="Incluir" asp-action="Create" class="floating-button"><i class="far fa-plus-square fa-lg"></i></a>
+
+<div class="container-fluid d-flex justify-content-around align-self-start align-content-start flex-wrap">
+  <link href="~/css/list.css" rel="stylesheet" />
+  <div class="container-fluid row">
+    @foreach (var item in Model)
+    {
+      <div class="col-lg-4">
+        <div class="container-fluid card shadow-lg border-purple m-2">
+          <div class="card-body p-2 text-purple">
+            <label for="'class' + '@item.Id'" class="font-weight-bold">Modelo</label>
+            <p id="'class' + '@item.Id'">@item.Model</p>
+            <label for="'name' + '@item.Id'" class="font-weight-bold">Fabricante</label>
+            <p id="'class' + '@item.Id'">@item.Producer</p>
+            <label for="'name' + '@item.Id'" class="font-weight-bold">Tipo</label>
+            <p id="'class' + '@item.Id'">@item.Type.GetDisplayValue()</p>
+            <label for="'name' + '@item.Id'" class="font-weight-bold">Valor</label>
+            <p id="'class' + '@item.Id'">@item.Value.ToString("0.00")</p>
+          </div>
+          <div class="card-footer border-top border-purple d-flex bg-white">
+            <div class="flex-1 text-center">
+              <a asp-action="Edit" asp-route-id="@item.Id"><i data-toggle="tooltip" data-placement="bottom" title="Editar" class="fas fa-pen"></i></a>
+            </div>
+            <div class="flex-1 text-center">
+              <a asp-action="Delete" asp-route-id="@item.Id"><i data-toggle="tooltip" data-placement="bottom" title="Excluir" class="fas fa-eraser"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

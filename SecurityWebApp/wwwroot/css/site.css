@@ -202,3 +202,8 @@ button, input[type="submit"] {
   border-color: #7159c1;
   box-shadow: 0 0 0 0.2rem rgb(204, 198, 226);
 }
+
+.form-row{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

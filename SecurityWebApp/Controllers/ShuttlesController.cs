@@ -44,8 +44,11 @@ namespace SecurityWebApp.Controllers
     }
 
     // GET: Shuttles/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+      var pilots     = new SelectList(_context.Pilots, "Id", "Name");
+      ViewBag.Pilots = pilots;
+
       return View();
     }
 
