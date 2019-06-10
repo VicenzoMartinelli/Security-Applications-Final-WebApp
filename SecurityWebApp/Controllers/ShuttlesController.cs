@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SecurityWebApp.Data;
 using SecurityWebApp.Data.Model;
+using SecurityWebApp.Models;
 
 namespace SecurityWebApp.Controllers
 {
@@ -57,19 +58,28 @@ namespace SecurityWebApp.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Model,Producer,Value,Type")] Shuttle shuttle)
+    public async Task<IActionResult> Create([Bind("Id,Model,Producer,Value,Type,PilotId")] ShuttleViewModel shuttle)
     {
       if (ModelState.IsValid)
       {
-        shuttle.Id = Guid.NewGuid();
-        _context.Add(shuttle);
+        var model = new Shuttle()
+        {
+          Id       = Guid.NewGuid(),
+          Model    = shuttle.Model,
+          Pilot    = shuttle.PilotId.HasValue ? new Pilot { Id = shuttle.PilotId.Value } : null,
+          Producer = shuttle.Producer,
+          Type     = shuttle.Type,
+           Value   = shuttle.Value
+        };
+
+        _context.Add(model);
         await _context.SaveChangesAsync();
+
         return RedirectToAction(nameof(Index));
       }
       return View(shuttle);
     }
 
-    // GET: Shuttles/Edit/5
     public async Task<IActionResult> Edit(Guid? id)
     {
       if (id == null)
@@ -82,6 +92,10 @@ namespace SecurityWebApp.Controllers
       {
         return NotFound();
       }
+
+      var pilots = new SelectList(_context.Pilots, "Id", "Name", shuttle.Pilot?.Id);
+      ViewBag.Pilots = pilots;
+
       return View(shuttle);
     }
 
@@ -90,7 +104,7 @@ namespace SecurityWebApp.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid id, [Bind("Id,Model,Producer,Value,Type")] Shuttle shuttle)
+    public async Task<IActionResult> Edit(Guid id, [Bind("Id,Model,Producer,Value,Type")] ShuttleViewModel shuttle)
     {
       if (id != shuttle.Id)
       {
@@ -101,7 +115,17 @@ namespace SecurityWebApp.Controllers
       {
         try
         {
-          _context.Update(shuttle);
+          var model = new Shuttle()
+          {
+            Id       = id,
+            Model    = shuttle.Model,
+            Pilot    = shuttle.PilotId.HasValue ? new Pilot { Id = shuttle.PilotId.Value } : null,
+            Producer = shuttle.Producer,
+            Type     = shuttle.Type,
+            Value    = shuttle.Value
+          };
+
+          _context.Update(model);
           await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
