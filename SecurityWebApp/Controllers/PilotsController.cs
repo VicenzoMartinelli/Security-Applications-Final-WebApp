@@ -11,7 +11,7 @@ using SecurityWebApp.Data.Model;
 
 namespace SecurityWebApp.Controllers
 {
-  [Authorize()]
+  //[Authorize()]
   public class PilotsController : Controller
   {
     private readonly ApplicationDbContext _context;

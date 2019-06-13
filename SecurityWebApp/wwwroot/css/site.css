@@ -88,7 +88,7 @@ a {
     transform: scale(1.1);
   }
 
-button, input[type="submit"] {
+button, button[type="submit"], input[type="submit"] {
   display: inline-block;
   line-height: 50px !important;
   font-size: 16px !important;

@@ -15,7 +15,7 @@ let size = 1;
 let fl = canvas.width;
 let centerX = canvas.width / 2;
 let centerY = canvas.height / 2;
-let speed = 5;
+let speed = 100;
 
 var timestamp = null;
 var lastMouseX = null;
@@ -102,3 +102,10 @@ $(() => {
     $('.zooom-description').removeClass('hover');
   });
 });
+
+setInterval(() => {
+  if (size === 1)
+    size = 1.5;
+  else
+    size = 1;
+}, 300);

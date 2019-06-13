@@ -47,7 +47,7 @@ namespace SecurityWebApp.Controllers
     // GET: Shuttles/Create
     public async Task<IActionResult> Create()
     {
-      var pilots     = new SelectList(_context.Pilots, "Id", "Name");
+      var pilots     = new SelectList(await _context.Pilots.ToListAsync(), "Id", "Name");
       ViewBag.Pilots = pilots;
 
       return View();
@@ -66,7 +66,7 @@ namespace SecurityWebApp.Controllers
         {
           Id       = Guid.NewGuid(),
           Model    = shuttle.Model,
-          Pilot    = shuttle.PilotId.HasValue ? new Pilot { Id = shuttle.PilotId.Value } : null,
+          Pilot    = shuttle.PilotId.HasValue ? _context.Pilots.Find(shuttle.PilotId.Value) : null,
           Producer = shuttle.Producer,
           Type     = shuttle.Type,
            Value   = shuttle.Value
@@ -87,7 +87,8 @@ namespace SecurityWebApp.Controllers
         return NotFound();
       }
 
-      var shuttle = await _context.Shuttles.FindAsync(id);
+      var shuttle = await _context.Shuttles.Include(x => x.Pilot).Where(x => x.Id == id).SingleOrDefaultAsync();
+
       if (shuttle == null)
       {
         return NotFound();
@@ -115,17 +116,16 @@ namespace SecurityWebApp.Controllers
       {
         try
         {
-          var model = new Shuttle()
-          {
-            Id       = id,
-            Model    = shuttle.Model,
-            Pilot    = shuttle.PilotId.HasValue ? new Pilot { Id = shuttle.PilotId.Value } : null,
-            Producer = shuttle.Producer,
-            Type     = shuttle.Type,
-            Value    = shuttle.Value
-          };
+          var model = await _context.Shuttles.FindAsync(shuttle.Id);
+
+          model.Model    = shuttle.Model;
+          model.Pilot    = shuttle.PilotId.HasValue ? _context.Pilots.Find(shuttle.PilotId.Value) : null;
+          model.Producer = shuttle.Producer;
+          model.Type     = shuttle.Type;
+          model.Value    = shuttle.Value;
 
           _context.Update(model);
+
           await _context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
@@ -144,7 +144,6 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
-    // GET: Shuttles/Delete/5
     public async Task<IActionResult> Delete(Guid? id)
     {
       if (id == null)
@@ -168,7 +167,9 @@ namespace SecurityWebApp.Controllers
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
       var shuttle = await _context.Shuttles.FindAsync(id);
+
       _context.Shuttles.Remove(shuttle);
+
       await _context.SaveChangesAsync();
       return RedirectToAction(nameof(Index));
     }
