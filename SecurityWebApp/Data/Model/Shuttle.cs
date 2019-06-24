@@ -21,7 +21,7 @@ namespace SecurityWebApp.Data.Model
     [Range(1, int.MaxValue, ErrorMessage = "Informe um valor válido!")]
     public double Value { get; set; }
     [Display(Name = "Tipo")]
-    [Required]
+    [Required(ErrorMessage = "O campo Tipo é obrigatório")]
     public ShuttleType Type { get; set; }
     [Display(Name = "Piloto")]
     public virtual Pilot Pilot { get; set; }

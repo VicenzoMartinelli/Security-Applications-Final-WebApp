@@ -1,10 +1,134 @@
 ﻿@page
-@model AccessDeniedModel
+
 @{
-    ViewData["Title"] = "Access denied";
+  Layout = null;
+  ViewData["Title"] = "Acesso Negado";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<style type="text/css">
+  body {
+    background-color: #efefef;
+  }
+
+    body .base {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-direction: column;
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    }
+
+      body .base h1 {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        font-family: 'Ubuntu', sans-serif;
+        text-transform: uppercase;
+        text-align: center;
+        font-size: 30vw;
+        display: block;
+        margin: 0;
+        color: #00d7b8;
+        position: relative;
+        z-index: 0;
+        animation: colors .4s ease-in-out forwards;
+        animation-delay: 1.7s;
+      }
+
+        body .base h1:before {
+          content: "U";
+          position: absolute;
+          top: -9%;
+          right: 40%;
+          transform: rotate(180deg);
+          font-size: 15vw;
+          color: rgb(113, 89, 193) !important;
+          z-index: -1;
+          text-align: center;
+          animation: lock .2s ease-in-out forwards;
+          animation-delay: 1.5s;
+        }
+
+      body .base h2 {
+        font-family: 'Cabin', sans-serif;
+        color: #7159c1;
+        font-size: 2rem;
+        margin: 0;
+        text-align: center;
+        animation: colors .4s ease-in-out forwards;
+        animation-delay: 2s;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      }
+
+      body .base h5 {
+        font-family: 'Cabin', sans-serif;
+        color: #9ae1e2;
+        font-size: 2vw;
+        margin: 0;
+        margin-top: 10px;
+        text-align: center;
+        opacity: 0;
+        animation: show 2s ease-in-out forwards;
+        color: #ca3074;
+        animation-delay: 2s;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+      }
+
+  @@keyframes lock {
+    50% {
+      top: -4%;
+    }
+
+    100% {
+      top: -6%;
+    }
+  }
+
+  @@keyframes colors {
+    50% {
+      transform: scale(1.1);
+    }
+
+    100% {
+      color: rgb(113, 89, 193) !important;
+    }
+  }
+
+  @@keyframes show {
+    100% {
+      opacity: 1;
+    }
+  }
+
+  a {
+  }
+
+  h5 {
+    background: white;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: #ca3074;
+    transition: all linear 300ms;
+  }
+
+    a:hover {
+      border-radius: 1rem;
+      padding: 9px;
+      color: #fff !important;
+      background: #7159c1;
+    }
+</style>
+
+<div class="base io">
+  <h1 class="io">403</h1>
+  <h2>Você não tem acesso a essa página :(</h2>
+  <h5><a asp-action="Index" asp-controller="Home">Voltar para o início</a></h5>
+</div>

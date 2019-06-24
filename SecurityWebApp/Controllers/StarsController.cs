@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SecurityWebApp.Attributes;
 using SecurityWebApp.Data;
 using SecurityWebApp.Data.Model;
 
 namespace SecurityWebApp.Controllers
 {
-  //[IgnoreAntiforgeryToken]
+  [Authorize]
   public class StarsController : Controller
   {
     private readonly ApplicationDbContext _context;
@@ -23,31 +25,12 @@ namespace SecurityWebApp.Controllers
       _logger  = logger;
     }
 
-    // GET: Stars
     public async Task<IActionResult> Index()
     {
       return View(await _context.Stars.ToListAsync());
     }
 
-    // GET: Stars/Details/5
-    public async Task<IActionResult> Details(Guid? id)
-    {
-      if (id == null)
-      {
-        return NotFound();
-      }
-
-      var star = await _context.Stars
-          .FirstOrDefaultAsync(m => m.Id == id);
-      if (star == null)
-      {
-        return NotFound();
-      }
-
-      return View(star);
-    }
-
-    // GET: Stars/Create
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public IActionResult Create()
     {
       return View();
@@ -57,6 +40,7 @@ namespace SecurityWebApp.Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Name,Class")] Star star)
     {
@@ -70,7 +54,8 @@ namespace SecurityWebApp.Controllers
       return View(star);
     }
 
-    // GET: Stars/Edit/5
+    
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Edit(Guid? id)
     {
       if (id == null)
@@ -91,6 +76,7 @@ namespace SecurityWebApp.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Class")] Star star)
     {
       if (id != star.Id)
@@ -121,7 +107,7 @@ namespace SecurityWebApp.Controllers
       return View(star);
     }
 
-    // GET: Stars/Delete/5
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Delete(Guid? id)
     {
       if (id == null)
@@ -139,8 +125,8 @@ namespace SecurityWebApp.Controllers
       return View(star);
     }
 
-    // POST: Stars/Delete/5
     [HttpPost, ActionName("Delete")]
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {

@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SecurityWebApp.Attributes;
 using SecurityWebApp.Data;
 using SecurityWebApp.Data.Model;
 using SecurityWebApp.Models;
 
 namespace SecurityWebApp.Controllers
 {
+  [Authorize]
   public class ShuttlesController : Controller
   {
     private readonly ApplicationDbContext _context;
@@ -20,13 +23,13 @@ namespace SecurityWebApp.Controllers
       _context = context;
     }
 
-    // GET: Shuttles
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Index()
     {
       return View(await _context.Shuttles.ToListAsync());
     }
 
-    // GET: Shuttles/Details/5
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Details(Guid? id)
     {
       if (id == null)
@@ -44,7 +47,7 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
-    // GET: Shuttles/Create
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Create()
     {
       var pilots     = new SelectList(await _context.Pilots.ToListAsync(), "Id", "Name");
@@ -53,9 +56,7 @@ namespace SecurityWebApp.Controllers
       return View();
     }
 
-    // POST: Shuttles/Create
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Model,Producer,Value,Type,PilotId")] ShuttleViewModel shuttle)
@@ -80,6 +81,7 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Edit(Guid? id)
     {
       if (id == null)
@@ -100,12 +102,10 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
-    // POST: Shuttles/Edit/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Guid id, [Bind("Id,Model,Producer,Value,Type")] ShuttleViewModel shuttle)
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
+    public async Task<IActionResult> Edit(Guid id, [Bind("Id,Model,Producer,Value,Type,PilotId")] ShuttleViewModel shuttle)
     {
       if (id != shuttle.Id)
       {
@@ -144,6 +144,7 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Delete(Guid? id)
     {
       if (id == null)
@@ -161,8 +162,8 @@ namespace SecurityWebApp.Controllers
       return View(shuttle);
     }
 
-    // POST: Shuttles/Delete/5
     [HttpPost, ActionName("Delete")]
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {

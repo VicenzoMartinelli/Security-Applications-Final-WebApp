@@ -9,7 +9,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let c = canvas.getContext('2d');
-let numStars = 300;
+let numStars = 1000;
 let stars = []; //Empty array
 let size = 1;
 let fl = canvas.width;
@@ -24,7 +24,6 @@ var lastMouseY = null;
 document.querySelector('html').style.background = 'rgb(113, 89, 193) !important';
 
 canvas.addEventListener("mousemove", function (e) {
-  debugger;
   if (timestamp === null) {
     timestamp = Date.now();
     lastMouseX = e.screenX;

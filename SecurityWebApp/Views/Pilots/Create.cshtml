@@ -1,54 +1,54 @@
 ﻿@using SecurityWebApp.Data.Model;
+@using SecurityWebApp.Models.Config;
 
 @model SecurityWebApp.Data.Model.Pilot
 
 @{
-  ViewData["Title"] = "Create";
+  ViewData["Title"] = "Criar nave";
 }
 
-<h1>Create</h1>
+<h3 class="text-purple text-center">Cadastro do Piloto</h3>
 
-<h4>Pilot</h4>
 <hr />
-<div class="row">
-  <div class="col-md-4">
-    <form asp-action="Create">
-      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-      <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-        <label asp-for="BirthDate" class="control-label"></label>
-        @*@Html.TextBoxFor(model => model.BirthDate, new { type = "date" })*@
-        <input asp-for="BirthDate" type="date" class="form-control" />
-        <span asp-validation-for="BirthDate" class="text-danger"></span>
-      </div>
-      <div class="form-group d-block">
-        <label asp-for="Genre" class="control-label"></label>
-        <div class="d-flex justify-content-lg-around">
-          <div class="custom-control custom-radio">
-            @Html.RadioButtonFor(x => x.Genre, Genre.Male, new { @class = "custom-control-input", id = "rdbMale" })
-            <label class="custom-control-label" for="rdbMale">Masculino</label>
-          </div>
-          <div class="custom-control custom-radio">
-            @Html.RadioButtonFor(x => x.Genre, Genre.Female, new { @class = "custom-control-input", id = "rdbFemale" })
-            <label class="custom-control-label" for="rdbFemale">Feminino</label>
-          </div>
+<div class="container p-0">
+  <form asp-action="Create" class="form-vertical">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+      <label asp-for="Name" class="control-label"></label>
+      <input asp-for="Name" class="form-control" />
+      <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group w-50">
+      <label asp-for="BirthDate" class="control-label"></label>
+      <input asp-for="BirthDate" type="date" class="form-control" />
+      <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-group d-block w-50">
+      <label asp-for="Genre" class="control-label"></label>
+      <div class="d-flex justify-content-lg-around">
+        <div class="custom-control custom-radio">
+          @Html.RadioButtonFor(x => x.Genre, Genre.Male, new { @class = "custom-control-input", id = "rdbMale" })
+          <label class="custom-control-label" for="rdbMale">Masculino</label>
         </div>
+        <div class="custom-control custom-radio">
+          @Html.RadioButtonFor(x => x.Genre, Genre.Female, new { @class = "custom-control-input", id = "rdbFemale" })
+          <label class="custom-control-label" for="rdbFemale">Feminino</label>
+        </div>
+      </div>
 
-        <span asp-validation-for="Genre" class="text-danger"></span>
-      </div>
-      <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-      </div>
-    </form>
-  </div>
+      <span asp-validation-for="Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Salvar" class="btn btn-primary" />
+    </div>
+  </form>
 </div>
 
+
+<hr />
 <div>
-  <a asp-action="Index">Back to List</a>
+  <a asp-action="Index" class="text-right">Voltar</a>
 </div>
 
 @section Scripts {

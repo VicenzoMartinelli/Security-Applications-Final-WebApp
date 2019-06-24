@@ -37,44 +37,62 @@
   </environment>
 </head>
 <body>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+  <script src="~/lib/fontawesome/js/all.js" asp-append-version="true"></script>
+
+  @RenderSection("Scripts", required: false)
+
   <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
-      <div class="container">
-        <a class="navbar-brand nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-          <i class="fas fa-rocket"></i> Home
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-          <ul class="navbar-nav w-75 justify-content-between">
-            <li>
-              <a class="nav-link" asp-area="" asp-controller="Stars">
-                <i class="fas fa-globe-europe"></i> Astros
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" asp-area="" asp-controller="Shuttles">
-                <i class="fas fa-space-shuttle"></i> Espaçonaves
-              </a>
-            </li>
-            <li>
-              <a class="nav-link" asp-area="" asp-controller="Pilots">
-                <i class="fas fa-user-astronaut"></i> Pilotos
-              </a>
-            </li>
-            <partial name="_LoginPartial" />
-          </ul>
-          
-          <div class="d-flex flex-row collapse flex-grow-1 justify-content-center align-items-center justify-content-start">
-            
-          </div>
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom box-shadow mb-3">
+      <a class="navbar-toggler rounded-circle" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation" style="cursor: pointer;">
+        <div>
+          <i class="fas fa-angle-double-down"></i>
+        </div>
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav justify-content-between w-100">
+          <li>
+            <a class="navbar-brand nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+              <i class="fas fa-rocket"></i> Home
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" asp-area="" asp-controller="Stars" asp-action="Index">
+              <i class="fas fa-globe-europe"></i> Astros
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" asp-area="" asp-controller="Shuttles" asp-action="Index">
+              <i class="fas fa-space-shuttle"></i> Espaçonaves
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" asp-area="" asp-controller="Pilots" asp-action="Index">
+              <i class="fas fa-user-astronaut"></i> Pilotos
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">
+              <i class="fas fa-user-friends"></i> Usuários
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" asp-area="" asp-controller="Log" asp-action="Index">
+              <i class="fas fa-exclamation-triangle"></i> Logs
+            </a>
+          </li>
+
+          <partial name="_LoginPartial" />
+        </ul>
+
+        <div class="d-flex flex-row collapse flex-grow-1 justify-content-center align-items-center justify-content-start">
+
         </div>
       </div>
     </nav>
   </header>
-  <div class="container">
+
+  <div class="container" id="main-container">
     <main role="main" class="pb-3">
       @RenderBody()
     </main>
@@ -85,11 +103,5 @@
       &copy; 2019 - Segurança de Aplicações, Vicenzo & Samuel
     </div>
   </footer>
-
-
-  <script src="~/js/site.js" asp-append-version="true"></script>
-  <script src="~/lib/fontawesome/js/all.js" asp-append-version="true"></script>
-
-  @RenderSection("Scripts", required: false)
 </body>
 </html>

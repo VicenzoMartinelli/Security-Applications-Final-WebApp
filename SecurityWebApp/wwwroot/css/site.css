@@ -207,3 +207,33 @@ button, button[type="submit"], input[type="submit"] {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #7159c1;
+  background-color: #7159c1;
+}
+
+.navbar-toggler.rounded-circle {
+  cursor: pointer;
+  animation: all linear 300ms;
+}
+
+.navbar-toggler.rounded-circle {
+  cursor: pointer;
+  animation: all linear 300ms;
+}
+
+.rotate-arrow{
+  transform: rotate(180deg);
+}
+
+.navbar-collapse .nav-link
+{
+  text-align: center;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  box-shadow: #7159c1 -2px 8px 20px 2px;
+  color: #7159c1 !important;
+  background-color: inherit;
+}

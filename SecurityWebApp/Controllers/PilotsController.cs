@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SecurityWebApp.Attributes;
 using SecurityWebApp.Data;
 using SecurityWebApp.Data.Model;
 
 namespace SecurityWebApp.Controllers
 {
-  //[Authorize()]
+  [Authorize]
   public class PilotsController : Controller
   {
     private readonly ApplicationDbContext _context;
@@ -21,41 +22,22 @@ namespace SecurityWebApp.Controllers
       _context = context;
     }
 
-    // GET: Pilots
+
     public async Task<IActionResult> Index()
     {
       return View(await _context.Pilots.ToListAsync());
     }
 
-    // GET: Pilots/Details/5
-    public async Task<IActionResult> Details(Guid? id)
-    {
-      if (id == null)
-      {
-        return NotFound();
-      }
-
-      var pilot = await _context.Pilots
-          .FirstOrDefaultAsync(m => m.Id == id);
-      if (pilot == null)
-      {
-        return NotFound();
-      }
-
-      return View(pilot);
-    }
-
-    // GET: Pilots/Create
+    [Roles(DefaultRoles.Max, DefaultRoles.Max)]
     public IActionResult Create()
     {
       return View();
     }
 
-    // POST: Pilots/Create
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Roles(DefaultRoles.Max)]
     public async Task<IActionResult> Create([Bind("Id,Name,BirthDate,Genre")] Pilot pilot)
     {
       if (ModelState.IsValid)
@@ -68,7 +50,7 @@ namespace SecurityWebApp.Controllers
       return View(pilot);
     }
 
-    // GET: Pilots/Edit/5
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     public async Task<IActionResult> Edit(Guid? id)
     {
       if (id == null)
@@ -84,9 +66,7 @@ namespace SecurityWebApp.Controllers
       return View(pilot);
     }
 
-    // POST: Pilots/Edit/5
-    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [Roles(DefaultRoles.Max, DefaultRoles.Med)]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,BirthDate,Genre")] Pilot pilot)
@@ -119,7 +99,7 @@ namespace SecurityWebApp.Controllers
       return View(pilot);
     }
 
-    // GET: Pilots/Delete/5
+    [Roles(DefaultRoles.Max)]
     public async Task<IActionResult> Delete(Guid? id)
     {
       if (id == null)
@@ -137,9 +117,9 @@ namespace SecurityWebApp.Controllers
       return View(pilot);
     }
 
-    // POST: Pilots/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Roles(DefaultRoles.Max)]
     public async Task<IActionResult> DeleteConfirmed(Guid id)
     {
       var pilot = await _context.Pilots.FindAsync(id);

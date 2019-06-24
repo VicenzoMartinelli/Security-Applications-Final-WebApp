@@ -17,6 +17,9 @@ using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using SecurityWebApp.Data.Model;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Westwind.AspNetCore.LiveReload;
+using SecurityWebApp.Middlewares;
+using Log.Core;
 
 namespace SecurityWebApp
 {
@@ -38,9 +41,10 @@ namespace SecurityWebApp
       });
 
       services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbSqlServer")));
-      
-      
 
+      //register dependencies of core project
+      CoreBootStrapper.InitializeCore(services);
+      
       services
           .AddIdentity<AppUser, IdentityRole>(options =>
           {
@@ -74,10 +78,14 @@ namespace SecurityWebApp
 
       services.ConfigureApplicationCookie(options =>
       {
-        options.LoginPath = $"/Identity/Account/Login";
-        options.LogoutPath = $"/Identity/Account/Logout";
+        options.LoginPath        = $"/Identity/Account/Login";
+        options.LogoutPath       = $"/Identity/Account/Logout";
         options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+        options.ExpireTimeSpan   = new TimeSpan(24, 0, 0);
       });
+
+      //services.AddLiveReload();
+
     }
 
     
@@ -96,22 +104,18 @@ namespace SecurityWebApp
         SupportedUICultures   = supportedCultures
       });
 
-      if (env.IsDevelopment())
-      {
-        app.UseDeveloperExceptionPage();
-        app.UseDatabaseErrorPage();
-      }
-      else
-      {
-        app.UseExceptionHandler("/Home/Error");
-        app.UseHsts();
-      }
+      app.UseExceptionHandler("/Home/Error");
+      app.UseHsts();
 
       app.UseHttpsRedirection();
+      //app.UseLiveReload();
       app.UseStaticFiles();
       app.UseCookiePolicy();
 
+
       app.UseAuthentication();
+
+      app.UseLogMiddleware();
 
       app.UseMvc(routes =>
       {
@@ -119,6 +123,7 @@ namespace SecurityWebApp
                   name: "default",
                   template: "{controller=Home}/{action=Index}/{id?}");
       });
+
     }
   }
 }

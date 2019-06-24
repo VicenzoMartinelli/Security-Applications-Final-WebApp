@@ -1,0 +1,57 @@
+﻿@using SecurityWebApp.Data.Model;
+@using SecurityWebApp.Models.Config;
+
+@model IEnumerable<SecurityWebApp.Data.Model.AppUser>
+
+@{
+  ViewData["Title"] = "Usuários";
+}
+
+<h1 class="text-center text-purple">Lista de Usuários <i class="fas fa-user-secret"></i></h1>
+
+<a data-toggle="tooltip" data-placement="left" title="Incluir" asp-area="Identity" asp-page="/Account/Register" class="floating-button"><i class="far fa-plus-square fa-lg"></i></a>
+
+<div class="container-fluid d-flex justify-content-around align-self-start align-content-start flex-wrap">
+  <link href="~/css/list.css" rel="stylesheet" />
+  <style type="text/css">
+    div.flex-1.text-center a:hover{
+      transform: none !important;
+      padding: 5px 13px;
+    }
+  </style>
+  <div class="container-fluid row">
+    <table class="table table-bordered text-purple m-5">
+      <thead>
+        <tr>
+          <th scope="col" width="10%">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Setor</th>
+          <th scope="col" width="10%">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @{
+          int index = 1;
+          foreach (var us in Model)
+          {
+            <tr class="text-purple">
+              <th scope="row">@index</th>
+              <td>@us.UserName</td>
+              <td>@us.Email</td>
+              <td>@us.Sector</td>
+              <td>
+                <div class="d-flex">
+                  <div class="flex-1 text-center">
+                    <a asp-action="Delete" asp-route-id="@us.Id"><i data-toggle="tooltip" data-placement="bottom" title="Excluir" class="fas fa-eraser"></i></a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            index++;
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

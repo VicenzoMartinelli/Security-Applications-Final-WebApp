@@ -1,45 +1,57 @@
 ﻿@model SecurityWebApp.Data.Model.Shuttle
 
 @{
-    ViewData["Title"] = "Delete";
+  ViewData["Title"] = $"Deletar nave {Model.Model}";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Deseja mesmo excluir esta nave?</h3>
 <div>
-    <h4>Shuttle</h4>
+  <hr />
+  <dl class="row">
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Model)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Model)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Producer)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Producer)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Value)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Value)
+    </dd>
+    <dt class="col-sm-2">
+      @Html.DisplayNameFor(model => model.Type)
+    </dt>
+    <dd class="col-sm-10">
+      @Html.DisplayFor(model => model.Type)
+    </dd>
+    @{
+      if (Model.Pilot != null)
+      {
+        <dt class="col-sm-2">
+          @Html.DisplayNameFor(model => model.Pilot)
+        </dt>
+        <dd class="col-sm-10">
+          @Html.DisplayFor(model => model.Pilot.Name)
+        </dd>
+      }
+    }
+  </dl>
+
+  <form asp-action="Delete" class="form-vertical">
+    <input type="hidden" asp-for="Id" />
+    <input type="submit" value="Excluir" class="form-row btn btn-danger" />
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Producer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Producer)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Value)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Value)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="form-row">
+      <hr />
+      <a asp-action="Index">Voltar</a>
+    </div>
+  </form>
 </div>

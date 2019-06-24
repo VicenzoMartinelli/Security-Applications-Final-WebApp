@@ -38,12 +38,13 @@ namespace SecurityWebApp.Areas.Identity.Pages.Account
 
     public class InputModel
     {
-      [Required]
-      [EmailAddress]
-      public string Email { get; set; }
+      [Required(ErrorMessage = "Insira um usuário!")]
+      [Display(Name = "Usuário")]
+      public string UserName { get; set; }
 
-      [Required]
+      [Required(ErrorMessage = "Insira uma senha!")]
       [DataType(DataType.Password)]
+      [Display(Name = "Senha")]
       public string Password { get; set; }
 
       [Display(Name = "Lembrar log-in?")]
@@ -61,7 +62,6 @@ namespace SecurityWebApp.Areas.Identity.Pages.Account
 
       await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-      ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
       ReturnUrl = returnUrl;
     }
@@ -72,7 +72,7 @@ namespace SecurityWebApp.Areas.Identity.Pages.Account
 
       if (ModelState.IsValid)
       {
-        var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+        var result = await _signInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: true);
         if (result.Succeeded)
         {
           _logger.LogInformation("Usuário logado.");
@@ -84,8 +84,6 @@ namespace SecurityWebApp.Areas.Identity.Pages.Account
           return Page();
         }
       }
-
-      // If we got this far, something failed, redisplay form
       return Page();
     }
   }
