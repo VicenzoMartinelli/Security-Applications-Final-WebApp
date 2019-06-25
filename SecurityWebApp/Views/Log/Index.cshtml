@@ -1,0 +1,65 @@
+﻿@model SecurityWebApp.Models.LogViewModel;
+
+@{
+  ViewData["Title"] = "Logs";
+}
+
+  <div class="container-fluid m-0 p-0">
+    <div class="container-fluid">
+      <div class="card shadow-lg">
+        <div class="card-header">
+          <h4>Filtre o histórico de acesso</h4>
+        </div>
+        <div class="card-body">
+          <form asp-action="Index" asp-controller="Log" class="text-purple" method="get">
+            <div class="form-group">
+              <label for="datastart">Data Início</label>
+              <input type="date" asp-for="DateStart"  class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label for="dataend">Data Fim</label>
+              <input type="date" asp-for="DateEnd" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <label for="text">Filtrar por usuário ou conteúdo salvo</label>
+              <input type="text" asp-for="Text" class="form-control" />
+            </div>
+
+            <div class="form-group">
+              <button type="submit">
+                Filtrar <i class="fas fa-filter"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <table class="table table-bordered text-purple mt-3">
+        <thead>
+          <tr>
+            <th width="15%">Data</th>
+            <th>Descrição</th>
+            <th width="15%">Usuário</th>
+            <th width="10%">Ip Acesso</th>
+          </tr>
+        </thead>
+        <tbody style="overflow: auto;">
+          @{
+            foreach (var us in Model.Logs)
+            {
+              <tr class="text-purple" data-toggle="tooltip" title="@us.FormDataSended.Replace(";", "\n")" data-placement="bottom">
+                <td>@us.Date.ToString()</td>
+                <td>@us.Description</td>
+                <td>@us.UserName</td>
+                <td>@us.RequestIp</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
