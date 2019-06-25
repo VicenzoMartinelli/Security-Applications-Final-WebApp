@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using System;
 using MongoDB.Bson;
 using Log.Core.Context;
+using MongoDB.Bson.Serialization;
+using Log.Core.Config;
 
 namespace Log.Core.Context
 {
@@ -19,8 +21,7 @@ namespace Log.Core.Context
 
         db = mongoClient.GetDatabase("security-log");
 
-        db.RunCommandAsync((Command<BsonDocument>)"{ping:1}").GetAwaiter().GetResult();
-
+        BsonSerializer.RegisterSerializer(typeof(DateTime), new BsonUtcDateTimeSerializer());
       }
 
       return db;

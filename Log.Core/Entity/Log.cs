@@ -21,6 +21,7 @@ namespace Log.Core.Entity
     public string RequestIp { get; set; }
     public string RequestProtocol { get; set; }
     public string RequestMethod { get; set; }
-    public DateTime Date { get; set; } = DateTime.Now;
+    public DateTime Date { get; set; }
+    public TimeSpan Duration { get; set; }
   }
 }

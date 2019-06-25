@@ -97,6 +97,9 @@ namespace SecurityWebApp
       CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
       var supportedCultures = new[] { cultureInfo };
+
+      app.UseLogMiddleware();
+
       app.UseRequestLocalization(new RequestLocalizationOptions
       {
         DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR"),
@@ -112,10 +115,7 @@ namespace SecurityWebApp
       app.UseStaticFiles();
       app.UseCookiePolicy();
 
-
       app.UseAuthentication();
-
-      app.UseLogMiddleware();
 
       app.UseMvc(routes =>
       {

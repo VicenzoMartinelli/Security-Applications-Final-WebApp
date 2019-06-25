@@ -100,6 +100,12 @@ $(() => {
   }, function () {
     $('.zooom-description').removeClass('hover');
   });
+
+  $('.nav-link').hover(() => {
+    speed = 60;
+  }, () => {
+    speed = 5;
+  });
 });
 
 setInterval(() => {

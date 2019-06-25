@@ -12,6 +12,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace SecurityWebApp.Middlewares
 {
@@ -28,7 +29,11 @@ namespace SecurityWebApp.Middlewares
 
     public async Task Invoke(HttpContext httpContext)
     {
+      var a = Stopwatch.StartNew();
+
       await _next(httpContext);
+
+      a.Stop();
 
       var formSended = new List<string>();
 
@@ -45,7 +50,7 @@ namespace SecurityWebApp.Middlewares
       {
         try
         {
-          await _rep.AddAsync(new LogEntity
+          var log = new LogEntity
           {
             Description     = $"{httpContext.Request.Method} {httpContext.Request.Path} - {httpContext.Response.StatusCode}",
             RequestIp       = httpContext.Connection.RemoteIpAddress.ToString(),
@@ -53,8 +58,11 @@ namespace SecurityWebApp.Middlewares
             RequestProtocol = httpContext.Request.Protocol,
             UserName        = httpContext.User.Identity?.Name ?? "Não Autenticado",
             Url             = httpContext.Connection.LocalIpAddress.ToString() + httpContext.Request.Path,
-            FormDataSended  = string.Join(';', formSended)
-          });
+            FormDataSended  = string.Join(';', formSended),
+            Date            = DateTime.Now,
+            Duration        = a.Elapsed
+          };
+          await _rep.AddAsync(log);
         }
         catch (Exception){}
       }

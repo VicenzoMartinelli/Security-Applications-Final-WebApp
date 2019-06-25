@@ -32,9 +32,11 @@ namespace SecurityWebApp.Controllers
 
     public async Task<IActionResult> Index(FilterLogDTO filter)
     {
+      var logs = await _repLog.GetByFilterLog(filter);
+
       return View(new LogViewModel
       {
-        Logs      = await _repLog.GetByFilterLog(filter),
+        Logs      = logs,
         DateEnd   = filter.DateEnd,
         DateStart = filter.DateStart,
         Text      = filter.Text
