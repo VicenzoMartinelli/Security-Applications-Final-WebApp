@@ -28,7 +28,7 @@ namespace SecurityWebApp.Controllers
       return View(await _context.Pilots.ToListAsync());
     }
 
-    [Roles(DefaultRoles.Max, DefaultRoles.Max)]
+    [Roles(DefaultRoles.Max)]
     public IActionResult Create()
     {
       return View();

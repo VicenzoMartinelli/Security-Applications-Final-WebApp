@@ -1,10 +1,10 @@
 ﻿@model SecurityWebApp.Data.Model.Star
 
 @{
-  ViewData["Title"] = "Create";
+  ViewData["Title"] = "Editar Astros";
 }
 
-<h3 class="text-purple text-center">Cadastro do Astro</h3>
+<h3 class="text-purple text-center">Editar Astro</h3>
 
 <hr />
 
@@ -14,7 +14,7 @@
 
 <hr />
 <div class="container p-0">
-  <form asp-action="Create" class="form-vertical">
+  <form asp-action="Edit" class="form-vertical">
     @Html.AntiForgeryToken()
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
